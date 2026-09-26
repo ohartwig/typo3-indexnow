@@ -31,6 +31,7 @@
         "typo3/cms-frontend": "^14.0"
     },
     "require-dev": {
+        "infection/infection": "^0.35.4",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^11.5 || ^12.0 || ^13.0",
         "typo3/cms-scheduler": "^14.0",
@@ -52,6 +53,15 @@
             "Koh\\IndexNow\\Typo3\\Tests\\": "Tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://git.ole-hartwig.eu/api/v4/group/1091/-/packages/composer/packages.json",
+            "only": [
+                "koh/*"
+            ]
+        }
+    ],
     "extra": {
         "typo3/cms": {
             "extension-key": "koh_indexnow"
@@ -64,7 +74,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "typo3/class-alias-loader": true,
-            "typo3/cms-composer-installers": true
+            "typo3/cms-composer-installers": true,
+            "infection/extension-installer": true
         }
     }
 }

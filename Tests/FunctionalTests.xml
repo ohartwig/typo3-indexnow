@@ -11,6 +11,11 @@
             <directory>Functional</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>../Classes</directory>
+        </include>
+    </source>
     <php>
         <ini name="memory_limit" value="1G"/>
         <!-- SQLite unless the pipeline provides a database. -->

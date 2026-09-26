@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Kai Ole Hartwig
+# SPDX-License-Identifier: MIT
+#
+# Listing this set in a site's `dependencies:` is what switches IndexNow on for
+# that site. Installing the extension alone announces nothing.
+name: koh/indexnow
+label: 'IndexNow'

@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 Kai Ole Hartwig
+# SPDX-License-Identifier: MIT
+categories:
+  indexnow:
+    label: 'IndexNow'
+
+settings:
+  indexnow.enabled:
+    label: 'Announce changes via IndexNow'
+    description: 'Only ever takes effect in the Production application context and on hosts the host policy accepts; development hosts are refused regardless of this switch.'
+    category: indexnow
+    type: bool
+    default: true
+  indexnow.key:
+    label: 'Key (optional)'
+    description: 'Leave empty: a key per host is derived from the installation''s encryption key, so nothing has to be stored or provisioned. Set a value only to keep a key you already registered elsewhere (8-128 characters, a-z A-Z 0-9 -).'
+    category: indexnow
+    type: string
+    default: ''
+  indexnow.excludedDoktypes:
+    label: 'Page types never announced'
+    description: 'Comma-separated doktypes. The default matches the core XML sitemap: links, shortcuts, backend sections, mount points, spacers, folders and the recycler.'
+    category: indexnow
+    type: string
+    default: '3, 4, 6, 7, 199, 254, 255'
+  indexnow.includeParentPage:
+    label: 'Also announce the parent page'
+    description: 'A new or changed page usually changes the list it appears in, such as a blog or news overview.'
+    category: indexnow
+    type: bool
+    default: true
+  indexnow.deniedHostSuffixes:
+    label: 'Additional host suffixes never announced'
+    description: 'Comma-separated, e.g. "staging.example.com, preview.example.net". Adds to the built-in list (.localhost, .test, .invalid, .internal, hosts with a dev/staging/preview label, ...).'
+    category: indexnow
+    type: string
+    default: ''

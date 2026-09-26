@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 Kai Ole Hartwig
+# SPDX-License-Identifier: MIT
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Koh\IndexNow\Typo3\:
+    resource: '../Classes/*'
+
+  # DataHandler instantiates hook classes through makeInstance(); public makes
+  # that return the container's shared instance, so the collector state it
+  # holds is the one the flush reads.
+  Koh\IndexNow\Typo3\Change\DataHandlerHook:
+    public: true
+
+  Koh\IndexNow\Typo3\Change\ChangeCollector:
+    shared: true

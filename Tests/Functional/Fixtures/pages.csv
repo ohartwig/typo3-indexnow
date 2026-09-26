@@ -1,0 +1,27 @@
+"pages"
+,"uid","pid","sys_language_uid","l10n_parent","title","slug","doktype","hidden","deleted","fe_group","extendToSubpages","no_index","canonical_link","starttime","endtime","is_siteroot"
+,1,0,0,0,"Start","/",1,0,0,"",0,0,"",0,0,1
+,2,1,0,0,"Leistungen","/leistungen",1,0,0,"",0,0,"",0,0,0
+,3,1,0,0,"Ordner","/ordner",254,0,0,"",0,0,"",0,0,0
+,4,1,0,0,"Intern","/intern",1,0,0,"1",1,0,"",0,0,0
+,5,1,0,0,"Versteckt","/versteckt",1,1,0,"",0,0,"",0,0,0
+,6,1,0,0,"Nicht indexieren","/noindex",1,0,0,"",0,1,"",0,0,0
+,7,2,0,0,"Beratung","/leistungen/beratung",1,0,0,"",0,0,"",0,0,0
+,8,4,0,0,"Unter Intern","/intern/unter",1,0,0,"",0,0,"",0,0,0
+,9,3,0,0,"Beitrag im Ordner","/beitrag",1,0,0,"",0,0,"",0,0,0
+,10,1,0,0,"Geplant","/geplant",1,0,0,"",0,0,"",4102444800,0,0
+,11,0,1,1,"Home","/",1,0,0,"",0,0,"",0,0,1
+,12,1,1,2,"Services","/services",1,0,0,"",0,0,"",0,0,0
+,13,2,1,7,"Consulting","/services/consulting",1,0,0,"",0,0,"",0,0,0
+"tt_content"
+,"uid","pid","sys_language_uid","CType","header"
+,1,2,0,"text","Deutscher Inhalt"
+,2,2,1,"text","English content"
+,3,7,-1,"text","Alle Sprachen"
+,4,3,0,"text","Im Ordner"
+"be_users"
+,"uid","pid","username","admin","workspace_perms"
+,1,0,"admin",1,1
+"sys_workspace"
+,"uid","pid","title","adminusers"
+,1,0,"Entwurf","be_users_1"

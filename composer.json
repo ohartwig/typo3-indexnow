@@ -1,0 +1,70 @@
+{
+    "name": "koh/typo3-indexnow",
+    "description": "IndexNow for TYPO3: tells search engines within minutes which pages were published, changed, scheduled or removed. Per-host keys without configuration, a hard stop for non-production hosts, a retrying queue.",
+    "type": "typo3-cms-extension",
+    "license": "MIT",
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "indexnow",
+        "seo",
+        "bing"
+    ],
+    "authors": [
+        {
+            "name": "Kai Ole Hartwig",
+            "email": "mail@ole-hartwig.eu"
+        }
+    ],
+    "homepage": "https://ole-hartwig.eu/open-source",
+    "support": {
+        "issues": "https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/-/issues",
+        "source": "https://github.com/ole-hartwig/typo3-indexnow"
+    },
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.8",
+        "koh/indexnow": "^1.0",
+        "psr/http-client": "^1.0",
+        "psr/log": "^2.0 || ^3.0",
+        "typo3/cms-core": "^14.0",
+        "typo3/cms-frontend": "^14.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5 || ^12.0 || ^13.0",
+        "typo3/cms-scheduler": "^14.0",
+        "typo3/cms-seo": "^14.0",
+        "typo3/cms-workspaces": "^14.0",
+        "typo3/testing-framework": "^9.0"
+    },
+    "suggest": {
+        "typo3/cms-scheduler": "Runs the queue every five minutes; the task is created on extension:setup.",
+        "typo3/cms-workspaces": "Pages are announced when a workspace is published, not while they are drafted."
+    },
+    "autoload": {
+        "psr-4": {
+            "Koh\\IndexNow\\Typo3\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Koh\\IndexNow\\Typo3\\Tests\\": "Tests/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "koh_indexnow"
+        },
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
+    }
+}

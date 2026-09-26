@@ -52,6 +52,15 @@
             "Koh\\IndexNow\\Typo3\\Tests\\": "Tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://git.ole-hartwig.eu/api/v4/group/1091/-/packages/composer/packages.json",
+            "only": [
+                "koh/*"
+            ]
+        }
+    ],
     "extra": {
         "typo3/cms": {
             "extension-key": "koh_indexnow"

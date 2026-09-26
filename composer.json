@@ -23,7 +23,7 @@
     },
     "require": {
         "php": "^8.2",
-        "guzzlehttp/guzzle": "^7.8",
+        "guzzlehttp/guzzle": "^7.15.2",
         "koh/indexnow": "^1.0",
         "psr/http-client": "^1.0",
         "psr/log": "^2.0 || ^3.0",

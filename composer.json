@@ -22,7 +22,7 @@
         "source": "https://github.com/ole-hartwig/typo3-indexnow"
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.5.11",
         "guzzlehttp/guzzle": "^7.15.5",
         "koh/indexnow": "^1.0",
         "psr/http-client": "^1.0.3",

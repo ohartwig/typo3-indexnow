@@ -2,6 +2,13 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.2](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.1...v1.0.2) (2026-09-27)
+
+### :bug: Fixes
+
+* **deps:** update dependency php to ^8.5.11 ([923cea0](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/923cea058007bd32f6393d60bf0fe5c791b56aa5))
+* **deps:** update composer packages ([edabdd3](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/edabdd38a701ebb67c976479baa4f18e058e16b2))
+
 ## [1.0.1](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.0...v1.0.1) (2026-09-26)
 
 ### :bug: Fixes

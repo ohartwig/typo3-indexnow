@@ -23,21 +23,21 @@
     },
     "require": {
         "php": "^8.2",
-        "guzzlehttp/guzzle": "^7.15.2",
+        "guzzlehttp/guzzle": "^7.15.5",
         "koh/indexnow": "^1.0",
-        "psr/http-client": "^1.0",
+        "psr/http-client": "^1.0.3",
         "psr/log": "^2.0 || ^3.0",
         "typo3/cms-core": "^14.0",
         "typo3/cms-frontend": "^14.0"
     },
     "require-dev": {
         "infection/infection": "^0.35.4",
-        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan": "^2.2.16",
         "phpunit/phpunit": "^11.5 || ^12.0 || ^13.0",
         "typo3/cms-scheduler": "^14.0",
         "typo3/cms-seo": "^14.0",
         "typo3/cms-workspaces": "^14.0",
-        "typo3/testing-framework": "^9.0"
+        "typo3/testing-framework": "^9.7.0"
     },
     "suggest": {
         "typo3/cms-scheduler": "Runs the queue every five minutes; the task is created on extension:setup.",

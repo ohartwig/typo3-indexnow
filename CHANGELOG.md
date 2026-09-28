@@ -2,6 +2,15 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.3](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.2...v1.0.3) (2026-09-28)
+
+### :repeat: Chores
+
+* **repo-templates:** sync ([7820a7e](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/7820a7e1d6d4a27e87a03a47a1b0568400653b34))
+* **deps:** update dependency mstruebing/editorconfig-checker to v3.11.3 ([fbe6a8f](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/fbe6a8f329d0435b9c5b6695bf5603259bc35c39))
+* **repo-templates:** sync ([996453b](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/996453bb6c5a2ef1003e44fe3f1140b207afcc5a))
+* **deps:** update dependency mstruebing/editorconfig-checker to v3.11.3 ([3390067](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/3390067c41033ea85eed0bcbbdc83dfd26afab87))
+
 ## [1.0.2](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.1...v1.0.2) (2026-09-27)
 
 ### :bug: Fixes

@@ -2,6 +2,17 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.5](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.4...v1.0.5) (2026-09-28)
+
+### :repeat: Continuous Integrations
+
+* **deps:** update dependency devops/ci-cd-components/composed-default-pipelines to v2.21.3 ([d9b7db5](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/d9b7db56739069eb895e72c75e1631e3b5756ac9))
+
+### :repeat: Chores
+
+* **repo-templates:** sync ([6e422c4](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/6e422c4739ba74c041d7a3378fd7d310a2103115))
+* **deps:** update dependency infection/infection to ^0.35.5 ([f1bf4ae](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f1bf4ae68b8009b08c584ca3560ba28212586488))
+
 ## [1.0.4](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.3...v1.0.4) (2026-09-28)
 
 ### :repeat: Continuous Integrations

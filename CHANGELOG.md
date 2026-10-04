@@ -2,6 +2,12 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.7](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.6...v1.0.7) (2026-10-04)
+
+### :repeat: Chores
+
+* **repo-templates:** sync ([a944d02](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/a944d022d8e43d2415978a1cb268a8b0f6e6ed4a))
+
 ## [1.0.6](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.5...v1.0.6) (2026-10-03)
 
 ### :repeat: Continuous Integrations

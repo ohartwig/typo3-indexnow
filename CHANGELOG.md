@@ -2,6 +2,12 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.8](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.7...v1.0.8) (2026-10-05)
+
+### :repeat: Chores
+
+* **deps:** update dependency phpstan/phpstan to ^2.2.17 ([a63009a](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/a63009a8c7b6f720db91533cc20cbd550551d62a))
+
 ## [1.0.7](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.6...v1.0.7) (2026-10-04)
 
 ### :repeat: Chores

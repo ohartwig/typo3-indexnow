@@ -67,6 +67,9 @@ Regardless of host:
   points, spacers, folders, the recycler (`indexnow.excludedDoktypes`, same
   default as the core XML sitemap).
 - **Workspace drafts** are ignored until they are published.
+- **Pages that have not started yet** — a start time in the future on the
+  page, its translation or an ancestor that extends to subpages — wait for
+  their start time.
 
 ## What gets announced, and when
 
@@ -84,6 +87,11 @@ removals explicitly. Its parent page is announced with it by default
 (`indexnow.includeParentPage`), because a new article changes the list it
 appears in. The go-live submission is strict instead and lists only pages meant
 to be found.
+
+A page whose **start time lies ahead** is the exception: it has no public URL
+yet, so it is not announced, not even when it is published from a workspace.
+That holds for the page, its translation and an ancestor that extends to
+subpages. The start-time scan announces it when the start time passes.
 
 Saving a page twenty times before the next run announces it once.
 

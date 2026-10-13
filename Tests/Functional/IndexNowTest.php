@@ -107,6 +107,61 @@ final class IndexNowTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function aScheduledPageIsNotAnnouncedBeforeItsStartTime(): void
+    {
+        // A post prepared in a workspace and published with a start time ahead
+        // went out at once (2026-10-13): changes skip the visibility rules.
+        $this->queue()->enqueue([new PageRef(10, 0)], Reason::Change);
+        $http = new RecordingHttpClient();
+        $report = $this->process($http);
+
+        self::assertSame([], $http->requests);
+        self::assertSame(1, $report->dropped);
+        self::assertSame([], $this->queueRows());
+    }
+
+    #[Test]
+    public function publishingContentOfAScheduledPageAnnouncesNothing(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('tt_content')->update('tt_content', ['pid' => 10], ['uid' => 4]);
+        $this->dataHandler(['tt_content' => [4 => ['header' => 'Draft']]], [], 1);
+        $qb = $this->getConnectionPool()->getQueryBuilderForTable('tt_content');
+        $qb->getRestrictions()->removeAll();
+        $version = $qb->select('uid')->from('tt_content')
+            ->where($qb->expr()->eq('t3ver_oid', 4), $qb->expr()->eq('t3ver_wsid', 1))
+            ->executeQuery()->fetchOne();
+        self::assertIsNumeric($version);
+        $this->dataHandler([], ['tt_content' => [4 => ['version' => ['action' => 'publish', 'swapWith' => (int) $version]]]], 1);
+        self::assertSame(['10:0'], $this->queuedKeys());
+
+        $http = new RecordingHttpClient();
+        $this->process($http);
+
+        self::assertSame([], $http->requests);
+    }
+
+    #[Test]
+    public function aScheduledPageIsAnnouncedOnceItsStartTimeHasPassed(): void
+    {
+        $this->queue()->enqueue([new PageRef(10, 0)], Reason::Schedule);
+        $http = new RecordingHttpClient();
+        $this->process($http, 4102444900);
+
+        self::assertContains('https://shop-domain.de/geplant', $http->payload()['urlList']);
+    }
+
+    #[Test]
+    public function aPageUnderAScheduledSectionIsNotAnnouncedEarly(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->update('pages', ['starttime' => 4102444800, 'extendToSubpages' => 1], ['uid' => 2]);
+        $this->queue()->enqueue([new PageRef(7, 0)], Reason::Change);
+        $http = new RecordingHttpClient();
+        $this->process($http);
+
+        self::assertSame([], $http->requests);
+    }
+
+    #[Test]
     public function aRestrictedPageIsNeverAnnouncedNotEvenWhenItChanges(): void
     {
         $this->queue()->enqueue([new PageRef(4, 0), new PageRef(8, 0)], Reason::Change);

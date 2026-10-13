@@ -23,6 +23,9 @@ use Koh\IndexNow\Typo3\Support\Row;
  *
  *  - lenient, for changes: the page may be hidden, deleted, expired or
  *    noindex now, because that is exactly what the engine has to learn;
+ *    but not scheduled: a page whose start time lies ahead has no public
+ *    URL yet, and announcing it would publish it early. The scheduled scan
+ *    queues it when the start time passes;
  *  - strict, for the full submission: only pages that are visible,
  *    indexable and not canonicalised elsewhere.
  *
@@ -72,6 +75,9 @@ class PageUrlResolver
         }
 
         if ($this->isAccessRestricted($page, $record, $rootline)) {
+            return null;
+        }
+        if ($this->isScheduled($page, $record, $rootline, $now)) {
             return null;
         }
         if ($strict && !$this->isPubliclyIndexable($page, $record, $rootline, $now)) {
@@ -172,6 +178,28 @@ class PageUrlResolver
         }
 
         return true;
+    }
+
+    /**
+     * Not live yet: the page, its translation or an ancestor that extends its
+     * settings to subpages starts in the future.
+     *
+     * @param array<string, mixed> $page
+     * @param array<string, mixed> $record
+     * @param list<array<string, mixed>> $rootline
+     */
+    private function isScheduled(array $page, array $record, array $rootline, int $now): bool
+    {
+        if (Row::int($page, 'starttime') > $now || Row::int($record, 'starttime') > $now) {
+            return true;
+        }
+        foreach (array_slice($rootline, 1) as $ancestor) {
+            if (Row::bool($ancestor, 'extendToSubpages') && Row::int($ancestor, 'starttime') > $now) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /** @param array<string, mixed> $row */

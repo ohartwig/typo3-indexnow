@@ -13,7 +13,7 @@ search and Copilot read, so a page announced here can be citable there the
 same day instead of whenever a crawler happens to return.
 
 For TYPO3 v14. Built on the framework-agnostic
-[koh/indexnow](https://github.com/ole-hartwig/indexnow).
+[koh/indexnow](https://github.com/ohartwig/indexnow).
 
 ## Install and switch on
 

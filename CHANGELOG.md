@@ -2,6 +2,20 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.11](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.10...v1.0.11) (2026-10-13)
+
+### :bug: Fixes
+
+* do not announce a page before its start time ([f6b459c](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f6b459c98526f5c9de8a57dd7d21244edd219150))
+
+### :repeat: Continuous Integrations
+
+* let Infection find phpunit.xml.dist in the root ([cf1fd43](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/cf1fd437c8ea37fe562f3f0789f3b32d237f0ba6))
+
+### :repeat: Chores
+
+* point public links at the GitHub mirror ([f055b4f](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f055b4f0a781e38e06d11f69219f8062dba33035))
+
 ## [1.0.10](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.9...v1.0.10) (2026-10-09)
 
 ### :repeat: Chores

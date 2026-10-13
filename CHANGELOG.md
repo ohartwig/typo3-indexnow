@@ -2,6 +2,17 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.12](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.11...v1.0.12) (2026-10-13)
+
+### :bug: Fixes
+
+* **composer:** use the keywords Packagist users search for ([f8cc345](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f8cc345903adb1e6365d60022eb01e65fa2705e1))
+* **docs:** describe that scheduled pages wait for their start time ([7663912](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/7663912ea2433806ff27b9fec018a2249b27a585))
+
+### :repeat: Continuous Integrations
+
+* publish to GitHub and Packagist ([b196fc3](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/b196fc35b3c668edfab65c5cd8515b7aea921a80))
+
 ## [1.0.11](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.10...v1.0.11) (2026-10-13)
 
 ### :bug: Fixes

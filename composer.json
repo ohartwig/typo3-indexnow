@@ -2,14 +2,16 @@
     "name": "koh/typo3-indexnow",
     "description": "IndexNow for TYPO3: tells search engines within minutes which pages were published, changed, scheduled or removed. Per-host keys without configuration, a hard stop for non-production hosts, a retrying queue.",
     "type": "typo3-cms-extension",
-    "license": "MIT",
     "keywords": [
-        "TYPO3",
-        "extension",
+        "typo3",
+        "typo3-extension",
         "indexnow",
         "seo",
-        "bing"
+        "bing",
+        "search-engine",
+        "sitemap"
     ],
+    "license": "MIT",
     "authors": [
         {
             "name": "Kai Ole Hartwig",

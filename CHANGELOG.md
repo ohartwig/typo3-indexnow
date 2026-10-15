@@ -2,6 +2,17 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.14](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.13...v1.0.14) (2026-10-15)
+
+### :repeat: Continuous Integrations
+
+* drop the TER publish, Packagist is enough ([df4fb19](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/df4fb1989df9f5cc442a21a8f3214cc25e73c212))
+* publish releases to the TYPO3 Extension Repository ([f849ff8](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f849ff86e29ae3316ac103d848dc5b0fe5e280b1))
+
+### :repeat: Chores
+
+* **deps:** update dependency infection/infection to ^0.35.8 ([b014851](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/b014851ec1fa6f6a0aad0dd6987af9271693b208))
+
 ## [1.0.13](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.12...v1.0.13) (2026-10-14)
 
 ### :repeat: Chores

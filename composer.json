@@ -25,7 +25,7 @@
         "security": "https://github.com/ohartwig/typo3-indexnow/blob/main/SECURITY.md"
     },
     "require": {
-        "php": "^8.5.11",
+        "php": "^8.3",
         "guzzlehttp/guzzle": "^7.15.5",
         "koh/indexnow": "^1.0",
         "psr/http-client": "^1.0.3",

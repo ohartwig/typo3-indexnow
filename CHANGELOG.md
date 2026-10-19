@@ -2,6 +2,13 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.16](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.15...v1.0.16) (2026-10-19)
+
+### :bug: Fixes
+
+* **deps:** update dependency guzzlehttp/guzzle to ^7.16.0 ([4e4329c](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/4e4329caa1d9c1895e7d30a89c49b61f6296bee0))
+* admit PHP 8.3 and test the floor on it ([8899c42](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/8899c427875de7c9aeb309ea5c68864cbec271c1))
+
 ## [1.0.15](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.14...v1.0.15) (2026-10-16)
 
 ### :repeat: Chores

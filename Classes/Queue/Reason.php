@@ -12,7 +12,9 @@ namespace Koh\IndexNow\Typo3\Queue;
  *
  * A change or a scheduled start/end is announced even when the page is now
  * hidden, deleted or noindex: the engine has to re-crawl to learn that, and
- * IndexNow asks for removals explicitly. The full submission at go-live only
+ * IndexNow asks for removals explicitly. Such a page is only queued when it
+ * was public before (ChangeCollector, ScheduledContentScanner); a page that
+ * was never public is not announced. The full submission at go-live only
  * lists pages that are meant to be found.
  */
 enum Reason: string

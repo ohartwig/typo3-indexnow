@@ -16,6 +16,10 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  * Changes inside a workspace are drafts and are ignored here; they are picked
  * up when they are published (RecordPublishedListener). Records stored in a
  * workspace are never looked at, so a draft cannot leak its URL.
+ *
+ * Before a page record is saved, moved, deleted or published, the collector
+ * notes whether the page is public, so that a change is announced only for a
+ * page that is public afterwards or was public before.
  */
 final class DataHandlerHook
 {
@@ -41,6 +45,19 @@ final class DataHandlerHook
 
     public function __construct(private readonly ChangeCollector $collector) {}
 
+    /**
+     * Runs before each record of a save is written. A new record has nothing
+     * to remember: it was not public before.
+     *
+     * @param array<string, mixed> $incomingFieldArray
+     */
+    public function processDatamap_preProcessFieldArray(array &$incomingFieldArray, string $table, string|int $id, DataHandler $dataHandler): void
+    {
+        if (self::isLive($dataHandler) && is_numeric($id)) {
+            $this->collector->recordBeforeChange($table, (int) $id);
+        }
+    }
+
     /** @param array<string, mixed> $fieldArray */
     public function processDatamap_afterDatabaseOperations(string $status, string $table, string|int $id, array $fieldArray, DataHandler $dataHandler): void
     {
@@ -61,6 +78,11 @@ final class DataHandlerHook
     {
         if (self::isLive($dataHandler) && in_array($command, self::COMMANDS_RESOLVED_BEFOREHAND, true)) {
             $this->collector->recordAboutToChange($table, (int) $id);
+        }
+        // A workspace publish runs inside the workspace; $id is the live record
+        // it replaces, or the new record itself when there is no live one yet.
+        if ($command === 'version') {
+            $this->collector->recordBeforeChange($table, (int) $id);
         }
     }
 

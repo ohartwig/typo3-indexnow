@@ -80,7 +80,8 @@ class QueueProcessor
             $groups[$resolved->host]['items'][] = $item;
 
             if (!$item->reason->isStrict() && SiteSettings::includeParentPage($resolved->site)) {
-                $parent = $this->resolver->resolve(new PageRef($resolved->parentPage, $item->ref->language), false, $now);
+                // The listing changed, so it is worth a re-crawl, but only if it is itself public.
+                $parent = $this->resolver->resolve(new PageRef($resolved->parentPage, $item->ref->language), true, $now);
                 if ($parent !== null && $parent->host === $resolved->host) {
                     $groups[$resolved->host]['urls'][$parent->url] = true;
                 }

@@ -25,7 +25,8 @@ use Koh\IndexNow\Typo3\Support\Row;
  *    noindex now, because that is exactly what the engine has to learn;
  *    but not scheduled: a page whose start time lies ahead has no public
  *    URL yet, and announcing it would publish it early. The scheduled scan
- *    queues it when the start time passes;
+ *    queues it when the start time passes. A page that was never public is
+ *    not queued in the first place (PageVisibility, ChangeCollector);
  *  - strict, for the full submission: only pages that are visible,
  *    indexable and not canonicalised elsewhere.
  *
@@ -162,22 +163,10 @@ class PageUrlResolver
      */
     private function isPubliclyIndexable(array $page, array $record, array $rootline, int $now): bool
     {
-        foreach ([$page, $record] as $row) {
-            if (!self::isVisible($row, $now)) {
-                return false;
-            }
-        }
         // The translation carries its own SEO fields; the default page's are irrelevant for it.
-        if (Row::bool($record, 'no_index') || trim(Row::string($record, 'canonical_link')) !== '') {
-            return false;
-        }
-        foreach (array_slice($rootline, 1) as $ancestor) {
-            if (Row::bool($ancestor, 'extendToSubpages') && !self::isVisible($ancestor, $now)) {
-                return false;
-            }
-        }
-
-        return true;
+        return PageVisibility::isVisible($page, $record, $rootline, $now)
+            && !Row::bool($record, 'no_index')
+            && trim(Row::string($record, 'canonical_link')) === '';
     }
 
     /**
@@ -200,18 +189,6 @@ class PageUrlResolver
         }
 
         return false;
-    }
-
-    /** @param array<string, mixed> $row */
-    private static function isVisible(array $row, int $now): bool
-    {
-        $start = Row::int($row, 'starttime');
-        $end = Row::int($row, 'endtime');
-
-        return !Row::bool($row, 'deleted')
-            && !Row::bool($row, 'hidden')
-            && ($start === 0 || $start <= $now)
-            && ($end === 0 || $end > $now);
     }
 
     /** @param array<string, mixed> $row */

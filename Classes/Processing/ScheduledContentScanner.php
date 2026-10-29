@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Koh\IndexNow\Typo3\Processing;
 
 use Koh\IndexNow\Typo3\Change\RecordPageMapper;
+use Koh\IndexNow\Typo3\Page\PageVisibility;
 use Koh\IndexNow\Typo3\Queue\PageQueue;
 use Koh\IndexNow\Typo3\Queue\PageRef;
 use Koh\IndexNow\Typo3\Queue\Reason;
@@ -28,6 +29,10 @@ use TYPO3\CMS\Core\Registry;
  * scheduler that was off for a month does not re-announce the whole archive.
  * On the very first run there is no window yet; the full submission covers
  * that moment.
+ *
+ * Only pages that were public at the start of the window or are public at its
+ * end are queued: a hidden page whose start time passes stays unannounced,
+ * like any other page that was never public.
  */
 class ScheduledContentScanner
 {
@@ -40,6 +45,7 @@ class ScheduledContentScanner
         private readonly RecordPageMapper $mapper,
         private readonly PageQueue $queue,
         private readonly Registry $registry,
+        private readonly PageVisibility $visibility,
     ) {}
 
     /** @return int pages queued */
@@ -65,6 +71,10 @@ class ScheduledContentScanner
                 }
             }
         }
+
+        $wasPublic = $this->visibility->of($refs, $since);
+        $isPublic = $this->visibility->of($refs, $now);
+        $refs = array_filter($refs, static fn(PageRef $ref): bool => ($wasPublic[$ref->key()] ?? false) || ($isPublic[$ref->key()] ?? false));
 
         $queued = $this->queue->enqueue($refs, Reason::Schedule, $now);
         // Only now: a run that fails before this line scans the same window again.

@@ -70,6 +70,9 @@ Regardless of host:
 - **Pages that have not started yet** — a start time in the future on the
   page, its translation or an ancestor that extends to subpages — wait for
   their start time.
+- **A page that was never public is not announced.** A new page is hidden by
+  default; it is not announced while it is edited, deleted or published from a
+  workspace in that state, only once it becomes visible.
 
 ## What gets announced, and when
 
@@ -82,11 +85,16 @@ Regardless of host:
 | `indexnow:submit-all` | The same, on demand |
 
 A changed page is announced **even when it is now hidden, deleted or
-`noindex`**: the engine has to re-crawl to learn that, and IndexNow asks for
-removals explicitly. Its parent page is announced with it by default
+`noindex`**, provided it was public before the change: the engine has to
+re-crawl to learn that it is gone, and IndexNow asks for removals explicitly.
+A page that was never public is not announced: one that is hidden, deleted or
+expired both before and after a change — on the page, its translation or an
+ancestor that extends to subpages — is not queued, so a page created hidden
+stays silent until it is unhidden. The same holds for the start- and end-time
+scan. The parent page is announced with a changed page by default
 (`indexnow.includeParentPage`), because a new article changes the list it
-appears in. The go-live submission is strict instead and lists only pages meant
-to be found.
+appears in, but only when the parent is itself visible and indexable. The
+go-live submission is strict instead and lists only pages meant to be found.
 
 A page whose **start time lies ahead** is the exception: it has no public URL
 yet, so it is not announced, not even when it is published from a workspace.

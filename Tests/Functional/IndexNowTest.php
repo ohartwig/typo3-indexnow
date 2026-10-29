@@ -12,6 +12,7 @@ use Koh\IndexNow\Typo3\Activation\ActivationGate;
 use Koh\IndexNow\Typo3\Change\RecordPageMapper;
 use Koh\IndexNow\Typo3\Page\PageData;
 use Koh\IndexNow\Typo3\Page\PageUrlResolver;
+use Koh\IndexNow\Typo3\Page\PageVisibility;
 use Koh\IndexNow\Typo3\Processing\FullSubmission;
 use Koh\IndexNow\Typo3\Processing\QueueProcessor;
 use Koh\IndexNow\Typo3\Processing\RunReport;
@@ -93,17 +94,113 @@ final class IndexNowTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function aHiddenPageIsStillAnnouncedWhenItChangesSoTheEngineLearnsItIsGone(): void
+    public function hidingAPublicPageAnnouncesItSoTheEngineLearnsItIsGone(): void
     {
-        $this->queue()->enqueue([new PageRef(5, 0)], Reason::Change);
+        $this->dataHandler(['pages' => [2 => ['hidden' => 1]]]);
+        self::assertSame(['2:0', '2:1'], $this->queuedKeys());
+
         $http = new RecordingHttpClient();
         $this->process($http);
 
         self::assertEqualsCanonicalizing(
-            ['https://shop-domain.de/versteckt', 'https://shop-domain.de/'],
+            ['https://shop-domain.de/leistungen', 'https://shop-domain.de/', 'https://shop-domain.de/en/services', 'https://shop-domain.de/en/'],
             $http->payload()['urlList'],
-            'the changed page plus the page listing it',
+            'the changed page plus the page listing it, in every language',
         );
+    }
+
+    #[Test]
+    public function aPageCreatedHiddenIsNotAnnounced(): void
+    {
+        // AUD-063-F01: a new page is hidden by TCA default, and its slug went
+        // out with the next run, before anyone had published the page.
+        $this->dataHandler(['pages' => ['NEW1' => ['pid' => 1, 'title' => 'Embargoed launch', 'slug' => '/embargoed-launch']]]);
+        self::assertSame(1, Row::int($this->pageBySlug('/embargoed-launch'), 'hidden'), 'premise: new pages start hidden');
+        self::assertSame([], $this->queuedKeys());
+
+        $http = new RecordingHttpClient();
+        $this->process($http);
+
+        self::assertSame([], $http->requests, 'nothing is sent, so /embargoed-launch does not reach the engines');
+    }
+
+    #[Test]
+    public function aPageThatWasNeverPublicIsAnnouncedOnceItIsUnhidden(): void
+    {
+        $this->dataHandler(['pages' => ['NEW1' => ['pid' => 1, 'title' => 'Launch', 'slug' => '/launch']]]);
+        $uid = Row::int($this->pageBySlug('/launch'), 'uid');
+        $this->dataHandler(['pages' => [$uid => ['title' => 'Launch, second draft']]]);
+        self::assertSame([], $this->queuedKeys(), 'editing it while hidden announces nothing');
+
+        $this->dataHandler(['pages' => [$uid => ['hidden' => 0]]]);
+        self::assertSame([$uid . ':0'], $this->queuedKeys());
+
+        $http = new RecordingHttpClient();
+        $this->process($http);
+        self::assertContains('https://shop-domain.de/launch', $http->payload()['urlList']);
+    }
+
+    #[Test]
+    public function aPageCreatedVisibleIsAnnounced(): void
+    {
+        $this->dataHandler(['pages' => ['NEW1' => ['pid' => 1, 'title' => 'Live', 'slug' => '/live', 'hidden' => 0]]]);
+
+        self::assertSame([Row::int($this->pageBySlug('/live'), 'uid') . ':0'], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function changesOnAPageThatWasNeverPublicAnnounceNothing(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('tt_content')->update('tt_content', ['pid' => 5], ['uid' => 4]);
+
+        $this->dataHandler(['pages' => [5 => ['title' => 'Noch versteckt']]]);
+        $this->dataHandler(['tt_content' => [4 => ['header' => 'Entwurf']]]);
+        $this->dataHandler([], ['pages' => [5 => ['delete' => 1]]]);
+
+        self::assertSame([], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function deletingAPublicPageAnnouncesIt(): void
+    {
+        $this->dataHandler([], ['pages' => [7 => ['delete' => 1]]]);
+
+        self::assertSame(['7:0', '7:1'], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function aHiddenTranslationIsNotAnnouncedUntilItIsUnhidden(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->update('pages', ['hidden' => 1], ['uid' => 13]);
+
+        $this->dataHandler(['pages' => [13 => ['title' => 'Consulting (draft)']]]);
+        self::assertSame([], $this->queuedKeys());
+
+        $this->dataHandler(['pages' => [13 => ['hidden' => 0]]]);
+        self::assertSame(['7:1'], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function aPageUnderAHiddenSectionIsNotAnnounced(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->update('pages', ['hidden' => 1, 'extendToSubpages' => 1], ['uid' => 2]);
+
+        $this->dataHandler(['pages' => [7 => ['title' => 'Beratung (Entwurf)']]]);
+
+        self::assertSame([], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function aHiddenParentIsNotAnnouncedWithItsChild(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', [
+            'uid' => 14, 'pid' => 5, 'title' => 'Kind', 'slug' => '/versteckt/kind', 'doktype' => 1,
+        ]);
+        $this->queue()->enqueue([new PageRef(14, 0)], Reason::Change);
+        $http = new RecordingHttpClient();
+        $this->process($http);
+
+        self::assertSame(['https://shop-domain.de/versteckt/kind'], $http->payload()['urlList']);
     }
 
     #[Test]
@@ -132,7 +229,7 @@ final class IndexNowTest extends FunctionalTestCase
             ->executeQuery()->fetchOne();
         self::assertIsNumeric($version);
         $this->dataHandler([], ['tt_content' => [4 => ['version' => ['action' => 'publish', 'swapWith' => (int) $version]]]], 1);
-        self::assertSame(['10:0'], $this->queuedKeys());
+        self::assertSame([], $this->queuedKeys(), 'the page is not public yet, so it is not even queued');
 
         $http = new RecordingHttpClient();
         $this->process($http);
@@ -310,6 +407,46 @@ final class IndexNowTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function publishingAHiddenNewPageAnnouncesNothing(): void
+    {
+        $this->dataHandler(['pages' => ['NEW1' => ['pid' => 1, 'title' => 'Embargoed launch', 'slug' => '/embargoed-launch']]], [], 1);
+        $uid = Row::int($this->pageBySlug('/embargoed-launch'), 'uid');
+
+        $this->dataHandler([], ['pages' => [$uid => ['version' => ['action' => 'publish', 'swapWith' => $uid]]]], 1);
+
+        self::assertSame(0, Row::int($this->pageBySlug('/embargoed-launch'), 't3ver_wsid'), 'premise: the page is live now');
+        self::assertSame([], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function publishingADraftThatHidesAPublicPageAnnouncesIt(): void
+    {
+        $this->dataHandler(['pages' => [2 => ['hidden' => 1]]], [], 1);
+        self::assertSame([], $this->queuedKeys());
+        $qb = $this->getConnectionPool()->getQueryBuilderForTable('pages');
+        $qb->getRestrictions()->removeAll();
+        $version = $qb->select('uid')->from('pages')
+            ->where($qb->expr()->eq('t3ver_oid', 2), $qb->expr()->eq('t3ver_wsid', 1))
+            ->executeQuery()->fetchOne();
+        self::assertIsNumeric($version);
+
+        $this->dataHandler([], ['pages' => [2 => ['version' => ['action' => 'publish', 'swapWith' => (int) $version]]]], 1);
+
+        self::assertSame(['2:0', '2:1'], $this->queuedKeys());
+    }
+
+    #[Test]
+    public function aHiddenPageWhoseStartTimePassesIsNotAnnounced(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->update('pages', ['hidden' => 1], ['uid' => 10]);
+        $registry = GeneralUtility::makeInstance(Registry::class);
+        $registry->set('koh_indexnow', 'scheduledScanUntil', 4102444700);
+
+        self::assertSame(0, $this->scanner()->scan(4102444900));
+        self::assertSame([], $this->queuedKeys());
+    }
+
+    #[Test]
     public function aPageThatWentLiveByItsStartTimeIsQueued(): void
     {
         $registry = GeneralUtility::makeInstance(Registry::class);
@@ -382,7 +519,7 @@ final class IndexNowTest extends FunctionalTestCase
     }
 
     /**
-     * @param array<string, array<int, array<string, mixed>>> $data
+     * @param array<string, array<int|string, array<string, mixed>>> $data
      * @param array<string, array<int, array<string, mixed>>> $commands
      */
     private function dataHandler(array $data, array $commands = [], int $workspace = 0): void
@@ -404,6 +541,19 @@ final class IndexNowTest extends FunctionalTestCase
         sort($keys);
 
         return $keys;
+    }
+
+    /** @return array<string, mixed> */
+    private function pageBySlug(string $slug): array
+    {
+        $qb = $this->getConnectionPool()->getQueryBuilderForTable('pages');
+        $qb->getRestrictions()->removeAll();
+        $row = $qb->select('*')->from('pages')
+            ->where($qb->expr()->eq('slug', $qb->createNamedParameter($slug)))
+            ->executeQuery()->fetchAssociative();
+        self::assertIsArray($row);
+
+        return $row;
     }
 
     /** @return list<array<string, mixed>> */
@@ -466,6 +616,12 @@ final class IndexNowTest extends FunctionalTestCase
 
     private function scanner(): ScheduledContentScanner
     {
-        return new ScheduledContentScanner($this->getConnectionPool(), $this->mapper(), $this->queue(), GeneralUtility::makeInstance(Registry::class));
+        return new ScheduledContentScanner(
+            $this->getConnectionPool(),
+            $this->mapper(),
+            $this->queue(),
+            GeneralUtility::makeInstance(Registry::class),
+            new PageVisibility($this->getConnectionPool()),
+        );
     }
 }

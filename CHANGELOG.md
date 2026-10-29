@@ -2,6 +2,12 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.20](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.19...v1.0.20) (2026-10-29)
+
+### :bug: Fixes
+
+* do not announce a page that was never public ([4a8baa7](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/4a8baa723c7d3eceecfaaa33d63e31ea26b2892d))
+
 ## [1.0.19](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.18...v1.0.19) (2026-10-28)
 
 ### :repeat: Chores

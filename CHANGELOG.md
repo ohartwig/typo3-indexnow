@@ -2,6 +2,13 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.22](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.21...v1.0.22) (2026-11-04)
+
+### :repeat: Chores
+
+* **deps:** update dependency infection/infection to ^0.35.9 ([5bf7875](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/5bf787501c4c4bad84ba026416b2a1323e5142d5))
+* **repo-templates:** sync ([daed0b2](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/daed0b289a388f7e3f4efd009a19ef0d3fa9921c))
+
 ## [1.0.21](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.20...v1.0.21) (2026-10-30)
 
 ### :repeat: Chores

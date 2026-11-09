@@ -2,6 +2,26 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.25](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.24...v1.0.25) (2026-11-09)
+
+### :repeat: Chores
+
+* **deps:** update dependency infection/infection to ^0.35.10 ([52f1841](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/52f1841cc08fe6c08a5c2e606e2c0d11d1ada49f))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.173-8.5 ([9fcca21](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/9fcca21847bb3375791791850362e9a5953380f6))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.172-8.5 ([8aebe9c](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/8aebe9cb1727e9850776667a5b2e498350a42d96))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.171-8.5 ([0a3049e](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/0a3049e010f98937e9d1d7b50b700abd366c5d17))
+* **repo-templates:** sync ([49a6f87](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/49a6f87b9ec6eaa69fe5691f7313e2df7d13f6a4))
+* **repo-templates:** sync ([d8db93f](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/d8db93fda6341deeea14c5f605e38cab9946fb83))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.150-8.5 ([8876506](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/887650669a7ba44916b8cce477eb84e6fbc99d79))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.149-8.5 ([7ff3669](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/7ff3669d73bda8c3745970f21558de15712fc280))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.148-8.5 ([bc29780](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/bc29780fff91d8879882544b349d07333f011487))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.147-8.5 ([3049163](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/30491639ab76b986c890ca7df2903d3690974f5a))
+* **repo-templates:** sync ([8d331fa](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/8d331fa95665dbc92bc9e4f07a6ce115d702ae9b))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.144-8.5 ([48be653](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/48be653201b1df18b570da5f6668d34983a4ae96))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.143-8.5 ([743f343](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/743f3431dc5cde29af5e4fc7a8f9572ec64b74a9))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.142-8.5 ([54b96bd](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/54b96bdcb0ac738c7b335d41f7766ebf2f80f874))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.139-8.5 ([df75077](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/df75077d3d5188040b4b0f37a71cdd2679882df9))
+
 ## [1.0.24](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.22...v1.0.24) (2026-11-06)
 
 ### :repeat: Chores

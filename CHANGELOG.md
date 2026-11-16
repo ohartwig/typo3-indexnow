@@ -2,6 +2,13 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.26](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.25...v1.0.26) (2026-11-16)
+
+### :repeat: Chores
+
+* **deps:** update dependency infection/infection to ^0.35.11 ([32ab502](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/32ab502768693e983e61ada0bdbdbd1ddb52d038))
+* **deps:** update dependency registry.ole-hartwig.eu/devops/images/franken-php/ci to v3.2.246-8.5 ([eed74ac](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/eed74ac6966bfa75e8c0298e4ab9d5a7ded11aa0))
+
 ## [1.0.25](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.24...v1.0.25) (2026-11-09)
 
 ### :repeat: Chores

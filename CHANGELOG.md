@@ -2,6 +2,16 @@
 
 All notable changes are recorded here by the release tooling.
 
+## [1.0.33](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.32...v1.0.33) (2026-11-23)
+
+### :bug: Fixes
+
+* **deps:** update dependency guzzlehttp/guzzle to ^7.17.0 ([f0a677f](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/f0a677f7644e29768c796d7d6ee510b21ddc2e4d))
+
+### :repeat: Chores
+
+* **deps:** update lefthook hook images ([52aa3bd](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/commit/52aa3bd03c5a7e26d6c3e17d074f65a894d6c5c0))
+
 ## [1.0.32](https://git.ole-hartwig.eu/ai-ready-platform/platform/typo3-indexnow/compare/v1.0.31...v1.0.32) (2026-11-22)
 
 ### :bug: Fixes
